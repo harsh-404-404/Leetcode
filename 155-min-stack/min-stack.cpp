@@ -1,17 +1,19 @@
 class MinStack {
 private:
     std::stack<int> st {};
-    std::multiset<int> min {};
+    std::stack<int> min {};
 public:
     MinStack() = default;
     
     void push(int value) {
-        min.insert(value); 
+        if(min.empty() || min.top() > value) min.push(value);
+        else min.push(min.top()); 
+        
         st.push(value);
     }
     
     void pop() {
-        min.erase(min.find(st.top()));
+        min.pop();
         st.pop();
         return;        
     } 
@@ -21,7 +23,7 @@ public:
     }
     
     int getMin() {
-        return *min.begin();
+        return min.top();
     }
 };
 
