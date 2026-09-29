@@ -2,24 +2,27 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
 
-        std::unordered_set<char> set{};
+        std::vector<int> array(256,-1);
 
         int b = 0;
         int e = 0;
         int ans = 0;
 
         for(int i = 0; i < s.size(); ++i){
-            if(!set.contains(s[i])){
-                set.insert(s[i]);
-                e++;
-            }else{
-                ans = std::max(ans, static_cast<int>(set.size()));
-                char c = s[i];
-                while(set.contains(c)) set.erase(s[b++]);
-                set.insert(c);
+            char c = s[i];
+            if(array[c] == -1){
+                array[c] = i;
+            }else if(array[c] < b){
+                array[c] = i;
             }
+            else{
+                ans = std::max(ans, e - b);
+                b = array[c] + 1;
+                array[c] = i;
+            }
+            e++;
         }
-        ans = std::max(ans, static_cast<int>(set.size()));
+        ans = std::max(ans, e - b);
 
         return ans;
     }
