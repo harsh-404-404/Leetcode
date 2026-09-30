@@ -14,22 +14,25 @@ public:
         int b = 0;
         int missing = tsize;
 
-        std::pair<int, int> ans {0,INT_MAX};
+        int AnsStart = 0;
+        int BestLength = INT_MAX;
         for(int e = 0; e < ssize; ++e){
+            char c = s[e];
 
-            if(array[s[e]] > 0) missing--; 
-            array[s[e]]--;
+            if(array[c] > 0) missing--; 
+            array[c]--;
 
-            if(missing != 0) continue;
-
-            while(missing <= 0){
-                ans = (ans.second - ans.first > e - b) ? std::make_pair(b,e) : ans;
+            while(missing == 0){
+                if(e - b + 1 < BestLength){
+                    AnsStart = b;
+                    BestLength = e - b + 1;
+                }
                 if(++array[s[b++]] > 0) missing++;
             }
             
         }
-        if(ans.second == INT_MAX) return "";
-        return s.substr(ans.first,(ans.second - ans.first) + 1);
+        if(BestLength == INT_MAX) return "";
+        return s.substr(AnsStart,BestLength);
 
     }
 };
