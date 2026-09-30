@@ -6,31 +6,19 @@ public:
         std::vector<int> ans {};
         ans.reserve(nums.size()- k + 1);
 
-        rank.push_front(0);
-        for(int i = 1; i < k; ++i){
-            int value = nums[i];
-            if(value >= nums[rank.back()]){
-                rank.push_back(i);
-            }else{
-                while(value >= nums[rank.front()]) rank.pop_front();
-                rank.push_front(i);
+        int size = nums.size();
+        for(int i = 0; i < size; ++i){
+
+            if(!rank.empty() && rank.front() == i - k) rank.pop_front();
+
+            while(!rank.empty() && nums[rank.back()] <= nums[i]) rank.pop_back();
+
+            rank.push_back(i);
+
+            if(i >= k - 1){
+                ans.push_back(nums[rank.front()]);
             }
-        }
-        ans.push_back(nums[rank.back()]);
-        int b = 1;
-        int e = k;
-        for(;e < nums.size(); ++e,++b){
-            int value = nums[e];
-            if(value >= nums[rank.back()]){
-                rank.push_back(e);
-            }else{
-                while(value >= nums[rank.front()]) rank.pop_front();
-                rank.push_front(e);
-            }
-            while(rank.back() < b) rank.pop_back();
-            ans.push_back(nums[rank.back()]);
         }
         return ans;
-
     }
 };
