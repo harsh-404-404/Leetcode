@@ -9,6 +9,13 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+auto fast_io = []() {
+    std::ios_base::sync_with_stdio(false); // Disables C and C++ stream syncing
+    std::cin.tie(nullptr);                 // Unties cin from cout (prevents auto-flushing)
+    std::cout.tie(nullptr);                // Unties cout from other streams
+    return 0;
+}();
+ 
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
@@ -29,3 +36,5 @@ public:
         return std::max(left,right) + 1;
     }
 };
+
+
