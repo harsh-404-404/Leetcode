@@ -12,7 +12,7 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        if (mydepth(root) == 10001) return false;
+        if (mydepth(root) == -1) return false;
         return true; 
     }
 
@@ -21,10 +21,10 @@ public:
 
         int left = mydepth(node->left);
         int right = mydepth(node->right);
-        if(left == 10001 || right == 10001) return 10001;
+        if(left == -1 || right == -1) return -1;
         int diff = left - right;
 
-        if(diff < -1 || diff > 1) return 10001;
+        if(diff < -1 || diff > 1) return -1;
 
         return std::max(left,right) + 1;
     }
