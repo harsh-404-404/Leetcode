@@ -9,6 +9,13 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+ const int _ = []() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    return 0;
+}();
+
 class Solution {
 public:
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
