@@ -10,27 +10,20 @@
  * };
  */
 class Solution {
+private:
+    int MAX = INT_MIN;
 public:
     int maxPathSum(TreeNode* root) {
-        auto op = findmax(root);
-        return std::max(op.first,op.second);
+        return std::max(MAX,findmax(root));
     }
 
-    std::pair<int,int> findmax(TreeNode* node){
-        if(!node) return {INT_MIN,INT_MIN};
-        auto left = findmax(node->left);
-        auto right = findmax(node->right);
+    int findmax(TreeNode* node){
+        if(!node) return INT_MIN;
 
-        int through = node->val
-                    + std::max(0, left.second)
-                    + std::max(0, right.second);
+        int left = findmax(node->left);
+        int right = findmax(node->right);
 
-        int best = std::max({
-            through,
-            left.first,
-            right.first,
-            node->val
-        });
-        return {best,node->val + std::max({0,left.second,right.second})};
+        MAX = std::max(MAX,std::max(0,left) + std::max(0,right) + node->val);
+        return std::max(std::max(0,left),std::max(0,right)) + node->val;
     }
 };
