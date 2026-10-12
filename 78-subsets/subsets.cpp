@@ -8,7 +8,7 @@ public:
         return ans;
     }
     
-    void helper(std::vector<int> nums, int i){
+    void helper(std::vector<int>& nums, int i){
         if(i == nums.size()){
             ans.push_back(path);
             return;
