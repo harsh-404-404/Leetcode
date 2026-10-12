@@ -5,6 +5,8 @@ private:
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         helper(nums, 0);
+        ans.reserve(1 << nums.size());
+        path.reserve(nums.size());
         return ans;
     }
     
