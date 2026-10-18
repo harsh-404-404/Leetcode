@@ -4,17 +4,20 @@ public:
     vector<vector<int>> subsets(vector<int>& nums) {
         int n = nums.size();
         std::vector<std::vector<int>> ans {};
-        ans.reserve(1 << n);
-        int final_permutation = 1 << n;
-        for(int permutation = 0; permutation < final_permutation ;++permutation){
-            std::vector<int> curr {};
-            curr.reserve(__builtin_popcount(permutation));
-            for(int j = 0; j < n; ++j){
-                if(permutation & (1 << j)) curr.push_back(nums[j]);
+        std::vector<int> curr {};
+        curr.reserve(n);
+        ans.reserve( 1 << n);
+
+        auto solve = [&](auto& self, int start)-> void{
+            ans.push_back(curr);
+            for(int i = start; i < n; ++i){
+                curr.push_back(nums[i]);
+                self(self,i+1);
+                curr.pop_back();
             }
-            ans.push_back(std::move(curr));
-        }
-        
+        };
+        solve(solve,0);
         return ans;
+
     }
 }; 
