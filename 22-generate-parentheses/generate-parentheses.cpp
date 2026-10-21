@@ -2,35 +2,25 @@ class Solution {
 public:
     vector<string> generateParenthesis(int n) {
         std::vector<std::string> ans {};
-        std::string curr {};
-        curr.reserve(n*2);
-        int s = n;
-        int c = 0;
-
-        auto solve = [&](auto& self)->void{
-            if(s == 0 && c == 0){
+        std::string curr (2*n, ' ');
+        auto solve = [&](auto& self,int o,int c,int idx) -> void{
+            if(c == n){
                 ans.push_back(curr);
                 return;
             }
 
-            if(s != 0){        
-                curr.push_back('(');
-                s--,c++;
-                self(self);
-                curr.pop_back();
-                s++,c--;
+            if(o < n){        
+                curr[idx] = '(';
+                self(self, o+1, c, idx+1);
             }
             
-            if(c != 0){
-                curr.push_back(')');
-                c--;
-                self(self);
-                curr.pop_back();
-                c++;
+            if(o > c){
+                curr[idx] = ')';
+                self(self, o, c+1, idx+1);
             }
             return;
         };
-        solve(solve);
+        solve(solve, 0, 0, 0);
         return ans;
         
     }
