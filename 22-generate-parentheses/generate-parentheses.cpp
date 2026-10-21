@@ -9,6 +9,7 @@ public:
         auto solve = [&](auto& self)->void{
             if(s == 0 && c == 0){
                 ans.push_back(curr);
+                return;
             }
 
             if(s != 0){        
