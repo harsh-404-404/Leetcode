@@ -3,6 +3,7 @@ public:
     vector<string> generateParenthesis(int n) {
         std::vector<std::string> ans {};
         std::string curr {};
+        curr.reserve(n*2);
         int s = n;
         int c = 0;
 
