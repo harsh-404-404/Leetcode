@@ -19,10 +19,8 @@ public:
                         self(self, idx + 1, i-1, j) ||
                         self(self, idx + 1, i+1, j));
 
-            if(ans) return true;
-
             board[i][j] = temp;
-            return false;
+            return ans;
         };
 
 
