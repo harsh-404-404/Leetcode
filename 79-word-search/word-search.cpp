@@ -5,6 +5,16 @@ public:
         int n = board[0].size();
         int k = word.size();
 
+        int feq[128] {};
+        for(auto& row : board)
+            for(char c : row) 
+                feq[c]++;
+        
+        for(char c : word){
+            if(feq[c] < 1) return false;
+        }
+
+
         auto solve = [&](auto& self, int idx, int i, int j) {
             if(idx == k) return true;
 
@@ -22,7 +32,6 @@ public:
             board[i][j] = temp;
             return ans;
         };
-
 
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
