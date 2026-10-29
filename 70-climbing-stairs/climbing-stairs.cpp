@@ -1,22 +1,18 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        if(n == 1) return 1;
-        if(n == 2) return 2;
-        std::vector<int> steps (n + 1,0);
-        steps[1] = 1;
-        steps[2] = 2;
-        int last_known = 2;
-        auto solve = [&](auto& self, int stairs)-> int{
-            if(stairs <= last_known){
-                return steps[stairs];
-            }
-            steps[stairs] = self(self, stairs - 1) + self(self, stairs - 2);
-            last_known = stairs;
-            return steps[stairs]; 
+
+        std::vector<int> memo (n + 1, -1);
+
+        auto solve = [&](auto& self, int stairs) -> int{
+            
+            if(stairs <= 2) return stairs;
+
+            if(memo[stairs] != -1) return memo[stairs];
+
+            return memo[stairs] = self(self, stairs - 1) + self(self, stairs - 2);
         };
 
-        solve(solve, n);
-        return steps[n];
+        return solve(solve, n);
     }
 };
