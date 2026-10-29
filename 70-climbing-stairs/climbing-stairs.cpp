@@ -2,17 +2,17 @@ class Solution {
 public:
     int climbStairs(int n) {
 
-        std::vector<int> memo (n + 1, -1);
+        if(n <= 2) return n;
 
-        auto solve = [&](auto& self, int stairs) -> int{
-            
-            if(stairs <= 2) return stairs;
+        int prev2 = 1;
+        int prev1 = 2; 
 
-            if(memo[stairs] != -1) return memo[stairs];
-
-            return memo[stairs] = self(self, stairs - 1) + self(self, stairs - 2);
-        };
-
-        return solve(solve, n);
+        for(int i = 3; i <=n ; ++i){
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        
+        return prev1;
     }
 };
