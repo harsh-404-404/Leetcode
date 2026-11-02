@@ -1,28 +1,20 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int max = 0;
+
         std::string_view sv {};
-        for(int i = 0; i < s.size(); ++i){
-            int left = i;
-            int right = i;
-            if(right + 1 < s.size() && s[left] == s[right + 1]){
-                right += 1;
-                while(left >= 0 && right < s.size() && s[left] == s[right]){
-                    left--,right++;
-                }
-                if(sv.size() < right - left - 1){
-                    sv = std::string_view(s).substr(left+1,right - left - 1);
-                }
-            }
-            left = i;
-            right = i;
+
+        auto solve = [&](int left, int right)->void{
             while(left >= 0 && right < s.size() && s[left] == s[right]){
                 left--,right++;
             }
             if(sv.size() < right - left - 1){
                 sv = std::string_view(s).substr(left+1,right - left - 1);
             }
+        };
+        for(int i = 0; i < s.size(); ++i){
+            solve(i,i);
+            solve(i,i+1);
         }
         return std::string(sv);
     }
