@@ -9,10 +9,12 @@ public:
                 left--,right++;
             }
         };
+
         for(int i = 0; i < s.size(); ++i){
-            solve(i,i);
-            solve(i,i+1);
+            solve(i, i);
+            solve(i, i+1);
         }
+
         return ans;
     }
 };
