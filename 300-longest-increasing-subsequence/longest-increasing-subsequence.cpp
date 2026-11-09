@@ -1,25 +1,18 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        std::vector<int> dp (nums.size() + 1, INT_MIN);
-        int max_len = 0;
-        for(int i = 0; i < nums.size(); ++i){
+        std::vector<int> dp (nums.size(), 0);
+
+        for(int i = nums.size() - 1; i >= 0; --i){
             int curr = nums[i];
-            if(curr > dp[max_len]){
-                dp[++max_len] = curr;
+            int j = i + 1;
+            int max = 0;
+            while(j < nums.size()){
+                if(nums[j] > curr) max = std::max(dp[j] + 1,max);
+                j++;
             }
-            else{
-                int front = 0;
-                int back = max_len;
-                while(front < back){
-                    int mid = front + (back - front)/2;
-                    
-                    if(dp[mid] >= curr) back = mid;           
-                    else front = mid + 1;
-                }
-                dp[front] = curr;
-            }
+            dp[i] = max;
         }
-        return max_len;
+        return *std::max_element(dp.begin(), dp.end()) + 1;
     }
 };
