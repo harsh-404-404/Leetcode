@@ -10,9 +10,11 @@ public:
         std::vector<bool> dp (target+1, false);
         dp[0] = true;
 
-        for(int j = 0; j < nums.size(); ++j){
-            for(int i = target; i >= nums[j]; i--){
-                dp[i] = dp[i] || dp[i - nums[j]];
+        for(int num : nums){
+            for(int i = target; i >= num; --i){
+                if(dp[i]) continue;
+                if(dp[i - num]) dp[i] = true;
+                if(dp[target]) return true;
             }
         }
         
