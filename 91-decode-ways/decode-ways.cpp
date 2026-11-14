@@ -8,12 +8,14 @@ public:
 
         for(int i = 0; i < s.size(); ++i){
             int curr = s[i] - '0';
+            //if curr is 0
             if(!curr){
                 if(!prv2 || prv > 2) return 0;
                 prv1 = prv2;
                 prv2 = 0;
                 continue;
             }
+            //if prev and curr make value greater than 26
             if(prv > 1 && prv*10 + curr > 26){
                 prv = curr;
                 prv2 = prv1;
@@ -24,8 +26,6 @@ public:
             prv1 = temp;
             prv = curr;
         }
-
         return prv1;
-
     }
 };
