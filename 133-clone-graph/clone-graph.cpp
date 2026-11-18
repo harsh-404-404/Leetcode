@@ -21,14 +21,14 @@ public:
 
 class Solution {
 private:
-    std::unordered_map<Node*,Node*> hash {};
+    std::unordered_map<int, Node*> hash {};
 public:
     Node* cloneGraph(Node* node) {
         if(!node) return nullptr;
-        if(hash.contains(node)) return hash[node];
+        if(hash.contains(node->val)) return hash[node->val];
 
         Node* curr { new Node(node->val) };
-        hash[node] = curr;
+        hash[node->val] = curr;
 
         for(auto* neighbor : node->neighbors){
             curr->neighbors.emplace_back( cloneGraph(neighbor) );    
