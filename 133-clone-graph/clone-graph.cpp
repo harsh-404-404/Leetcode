@@ -25,14 +25,17 @@ private:
 public:
     Node* cloneGraph(Node* node) {
         if(!node) return nullptr;
-        if(hash.contains(node->val)) return hash[node->val];
 
+        auto it = hash.find(node->val);
+        if (it != hash.end()) return it->second;
+        
         Node* curr { new Node(node->val) };
         hash[node->val] = curr;
 
         for(auto* neighbor : node->neighbors){
             curr->neighbors.emplace_back( cloneGraph(neighbor) );    
         }
+        
         return curr;
     }
 };
