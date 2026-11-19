@@ -1,3 +1,10 @@
+static const int fast_io = []() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
+
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
@@ -44,7 +51,6 @@ public:
             std::swap(curr,next);
         }
 
-
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
                 if(grid[i][j] == 1){
@@ -52,7 +58,7 @@ public:
                 }  
             }
         }
-        if(minutes == -1) return 0;
-        return minutes;
+
+        return (minutes == -1) ? 0 : minutes;
     }
 };
