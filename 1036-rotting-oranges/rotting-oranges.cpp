@@ -5,14 +5,18 @@ public:
         int col = grid[0].size();
         std::vector<int> curr,next;
 
+        int fresh = 0;
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
                 if(grid[i][j] == 2){
                     grid[i][j] = 0;
                     curr.push_back(i*col + j);
-                }
+                }else if(grid[i][j] == 1) fresh++;
             }
         }
+
+        if(fresh == 0) return 0;
+
         int minutes = -1;
         while(!curr.empty()){
             minutes++;
