@@ -5,7 +5,10 @@ public:
         int col = values[0].size();
 
         std::vector<std::vector<int>> pw (row, std::vector<int> (col, 0));
-        
+        std::vector<std::vector<int>> aw (row, std::vector<int> (col, 0));
+        std::vector<std::vector<int>> ans {};
+        ans.reserve(row*col);
+
         auto dfs = [&](auto& self,auto& water ,int prev_val, int i, int j)->void{
             if(i < 0 || i == row || j < 0 || j == col || values[i][j] < prev_val || water[i][j]) return;
             water[i][j] = 1;
@@ -19,22 +22,13 @@ public:
 
         for(int i = 0; i < col; ++i){
             dfs(dfs,pw,-1,0,i);
+            dfs(dfs,aw,-1,row-1,col - 1 - i);
         } 
         for(int i = 0; i < row; ++i) {
             dfs(dfs,pw,-1,i,0);
-        }    
+            dfs(dfs,aw,-1,row - 1 - i,col-1);
+        }
 
-        std::vector<std::vector<int>> aw (row, std::vector<int> (col, 0));
-
-        for(int i = col - 1; i >= 0; --i){
-            dfs(dfs,aw,-1,row-1,i);
-        } 
-        for(int i = row - 1; i >= 0; --i) {
-            dfs(dfs,aw,-1,i,col-1);
-        }    
-
-        std::vector<std::vector<int>> ans {};
-        ans.reserve(row*col);
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
                 if(pw[i][j] && aw[i][j]) ans.push_back({i,j});
