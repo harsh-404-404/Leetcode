@@ -4,14 +4,14 @@ public:
         int row = values.size();
         int col = values[0].size();
 
-        std::vector<std::vector<int>> pw (row, std::vector<int> (col, 0));
-        std::vector<std::vector<int>> aw (row, std::vector<int> (col, 0));
+        std::vector<std::vector<bool>> pw (row, std::vector<bool> (col, false));
+        std::vector<std::vector<bool>> aw (row, std::vector<bool> (col, false));
         std::vector<std::vector<int>> ans {};
         ans.reserve(row*col);
 
         auto dfs = [&](auto& self,auto& water ,int prev_val, int i, int j)->void{
             if(i < 0 || i == row || j < 0 || j == col || values[i][j] < prev_val || water[i][j]) return;
-            water[i][j] = 1;
+            water[i][j] = true;
             int my_val = values[i][j];
             self(self,water,my_val,i+1, j);
             self(self,water,my_val,i-1, j);
