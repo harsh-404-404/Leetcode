@@ -12,12 +12,12 @@ public:
 
         auto dfs = [&](auto& self, int curr_course)->bool{
             if(do_not_visite[curr_course]) return false;
-            if(checklist[curr_course]) return true;
+            do_not_visite[curr_course] = true;
             for(int i : preqlist[curr_course]){
-                do_not_visite[curr_course] = true;
+                if(checklist[i]) continue;
                 if(!self(self, i)) return false;
-                do_not_visite[curr_course] = false;
             }
+            do_not_visite[curr_course] = false;
             checklist[curr_course] = true;
             return true;
         };
