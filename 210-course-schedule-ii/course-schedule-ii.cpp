@@ -2,6 +2,7 @@ class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         std::vector<int> ans {};
+        ans.reserve(numCourses);
         int row = prerequisites.size();
         std::vector<std::vector<int>> preqlist (numCourses);
         for(int i = 0; i < row; ++i){
