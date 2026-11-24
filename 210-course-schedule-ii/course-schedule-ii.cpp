@@ -18,7 +18,6 @@ public:
             for(int i : preqlist[curr_course]){
                 if(checklist[i]) continue;
                 if(!self(self, i)) return false;
-
             }
             do_not_visite[curr_course] = false;
             checklist[curr_course] = true;
