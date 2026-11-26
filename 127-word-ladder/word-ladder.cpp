@@ -20,7 +20,8 @@ public:
                 
                 for(int i = 0; i < curr.size(); ++i){
                     char original = curr[i];
-                    for(char c = 'a' ; c <= 'z' ; ++c){
+                    for(char c = 'a'; c <= 'z'; ++c){
+                        if(c == original) continue;
                         curr[i] = c;
                         if(curr == endWord) return ans + 2;
                         if(word.contains(curr)){
